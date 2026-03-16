@@ -1,6 +1,6 @@
-# Re:Earth Visualizer Plugin ShadCN Template
+# Legend Panel Plugin for Re:Earth Visualizer
 
-This template provides a minimal setup to develop a Re:Earth Visualizer Plugin with Vite, React, ShadCN, and Tailwind CSS.
+A customizable legend panel plugin for Re:Earth Visualizer built with React, TypeScript, and Tailwind CSS. Display map legends with configurable styles, colors, and symbols.
 
 ## Tech Stack
 
@@ -20,48 +20,73 @@ The structure of a Re:Earth Visualizer Plugin aligns with the definitions in `re
   - `main` refers to the primary view of the extension, typically a widget panel or block panel.
   - You can prepare multiple UIs for `main`, `modal`, and `popup`. Each UI will be rendered in a sandboxed iframe, effectively acting as an independent Single Page Application (SPA).
 
-## Demo
+## Features
 
-This template includes a simple demo of a plugin with a widget extension. The demo helps illustrate the file structure.
+- **Customizable Panel**: Configure panel title, icon, and background colors
+- **Legend Groups**: Organize legends into titled groups
+- **Flexible Symbols**: Support for both color blocks and custom images
+- **Responsive Design**: Built with Tailwind CSS for clean, responsive layouts
+- **Easy Configuration**: Define legends through Re:Earth's property system
 
-First, define the plugin YAML file `public/reearth.yml`:
+## Plugin Configuration
+
+The plugin is defined in `public/reearth.yml`:
 
 ```yaml
-id: reearth-visualizer-plugin-shadcn-template
-name: Visualizer plugin shadcn template
+id: legend-panel-plugin
+name: Legend Panel Plugin
 version: 1.0.0
 extensions:
-  - id: demo
+  - id: legend_panel
     type: widget
-    name: Demo
+    name: Legend Panel
     schema:
       groups:
-        - id: appearance
-          title: Appearance
+        - id: general
+          title: General Settings
           fields:
-            - id: primary_color
-              title: Primary color
+            - id: show_panel_title
+              title: Show Panel Title
+              type: bool
+            - id: panel_title
+              title: Panel Title
               type: string
-              ui: color
+            - id: panel_title_icon
+              title: Panel Title Icon
+              type: url
+        - id: legends
+          title: Legends
+          list: true
+          fields:
+            - id: title
+              title: Group Title
+              type: string
+            - id: legends
+              title: Legend Items
+              type: array
 ```
 
-As shown, it contains a single extension `demo` of type `widget`.
+The plugin contains a single widget extension `legend_panel` that displays customizable map legends.
 
 Then, review the structure of the project:
 
 ```planttext
-my-project/
+legend-panel-plugin/
 ├── node_modules/
 ├── public/
 │   └── reearth.yml             // Plugin definition
 ├── src/
 │   ├── extensions/
-│   │   └── demo/               // Extension folder, naming by extension ID
+│   │   └── legend_panel/       // Legend panel extension
 │   │       ├── main/           // UI project for the main view
-│   │       └── demo.ts         // Extension script
+│   │       │   ├── App.tsx     // Main legend panel component
+│   │       │   ├── hooks.ts    // React hooks for Re:Earth integration
+│   │       │   ├── index.html  // HTML entry point
+│   │       │   └── main.tsx    // React app initialization
+│   │       └── legend_panel.ts // Extension script
 │   └── shared/
 │       ├── components/         // Shared components of ShadCN
-│       ├── lib/                // Shared lib of ShanCN
+│       ├── lib/                // Shared lib of ShadCN
 │       ├── reearthTypes/       // Shared Re:Earth Visualizer Plugin API types
 │       ├── global.css          // Shared Global CSS of tailwind
 │       └── utils.ts
@@ -127,26 +152,23 @@ Opens the interactive extension management tool for creating and managing extens
 
 ### Development Scripts
 
-Refer to the scripts in `package.json`. Here are explanations for some of them:
-
 ```zsh
-yarn dev:demo:main
+yarn dev:legend_panel:main
 ```
 
-Starts the development server for the `main` UI project of the `demo` extension.
-Ensure you check the environment variables being passed in so you can add your own scripts for different UI projects of different extensions.
+Starts the development server for the legend panel UI.
 
 ```zsh
-yarn build:demo:main
+yarn build:legend_panel:main
 ```
 
-Builds the `main` UI project of the `demo` extension to `dist-ui/demo/main`.
+Builds the legend panel UI to `dist-ui/legend_panel/main`.
 
 ```zsh
-yarn build:demo
+yarn build:legend_panel
 ```
 
-Builds the `demo` extension to `dist`. The `reearth.yml` file will also be copied to `dist`.
+Builds the legend panel extension to `dist`. The `reearth.yml` file will also be copied to `dist`.
 
 ```zsh
 yarn build
