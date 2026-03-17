@@ -88,11 +88,8 @@ export default () => {
     return groups;
   }, [property.legend_items]);
 
-  console.log("Current widget property:", property);
-
   useEffect(() => {
     const handleMessage = (message: MessageEvent) => {
-      console.log("Received message from extension:", message);
       const msg = message.data as MessageFromExtension;
 
       if (msg.action === "widgetProperty" && msg.payload) {
@@ -110,8 +107,6 @@ export default () => {
   useEffect(() => {
     postMsg("init");
   }, []);
-
-  console.log("Processed legend groups:", legendGroups);
 
   return {
     property,
