@@ -39,7 +39,7 @@ function App() {
                     />
                   ) : (
                     <div
-                      className="w-8 h-8 rounded-sm shadow-sm shadow-gray-300"
+                      className="w-8 h-8 rounded-sm shadow-sm shadow-black-300"
                       style={{
                         backgroundColor:
                           legend.legend_symbol_color || "#000000",
