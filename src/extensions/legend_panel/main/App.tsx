@@ -93,14 +93,14 @@ function App() {
       )}
 
       {/* Legend Items */}
-      {legendGroups?.map((group, groupIndex) =>
-        group.legends.length > 0 ? (
-          <div key={groupIndex} className="flex flex-col gap-2">
-            {group.title && (
-              <div className={`${subtitleTextSize} text-[#62748E]`}>
-                {group.title}
-              </div>
-            )}
+      {legendGroups?.map((group, groupIndex) => (
+        <div key={groupIndex} className="flex flex-col gap-2">
+          {group.title && (
+            <div className={`${subtitleTextSize} text-[#62748E]`}>
+              {group.title}
+            </div>
+          )}
+          {group.legends.length > 0 ? (
             <div className={`flex flex-col ${legendGap}`}>
               {group.legends.map((legend, legendIndex) => (
                 <div
@@ -130,9 +130,9 @@ function App() {
                 </div>
               ))}
             </div>
-          </div>
-        ) : null,
-      )}
+          ) : null}
+        </div>
+      ))}
 
       {/* Empty state tip */}
       {showEmptyTip && (
