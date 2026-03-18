@@ -5,8 +5,6 @@ import useHookes from "./hooks";
 function App() {
   const { property, panelStyle, legendGroups, size } = useHookes();
 
-  console.log("legendGroups", legendGroups, property);
-
   // Size-based class configurations
   const symbolSize = size === "small" ? "w-6 h-6" : "w-8 h-8";
   const titleTextSize = size === "small" ? "text-base" : "text-lg";
