@@ -6,19 +6,67 @@ function App() {
   const { property, panelStyle, legendGroups, size } = useHookes();
 
   // Size-based class configurations
-  const symbolSize = size === "small" ? "w-6 h-6" : "w-8 h-8";
-  const titleTextSize = size === "small" ? "text-base" : "text-lg";
-  const subtitleTextSize = size === "small" ? "text-xs" : "text-sm";
-  const legendTextSize = size === "small" ? "text-sm" : "text-md";
-  const itemGap = size === "small" ? "gap-2" : "gap-3";
-  const legendGap = size === "small" ? "gap-1" : "gap-1.5";
+  const getSizeConfig = () => {
+    switch (size) {
+      case "small":
+        return {
+          symbolSize: "w-4 h-4",
+          symbolBorderRadius: "rounded",
+          titleTextSize: "text-sm",
+          subtitleTextSize: "text-xs",
+          legendTextSize: "text-xs",
+          itemGap: "gap-1.5",
+          legendGap: "gap-1",
+          width: "250px",
+        };
+      case "medium":
+        return {
+          symbolSize: "w-6 h-6",
+          symbolBorderRadius: "rounded-sm",
+          titleTextSize: "text-base",
+          subtitleTextSize: "text-xs",
+          legendTextSize: "text-sm",
+          itemGap: "gap-2",
+          legendGap: "gap-1",
+          width: "300px",
+        };
+      case "large":
+      default:
+        return {
+          symbolSize: "w-8 h-8",
+          symbolBorderRadius: "rounded-md",
+          titleTextSize: "text-lg",
+          subtitleTextSize: "text-sm",
+          legendTextSize: "text-md",
+          itemGap: "gap-3",
+          legendGap: "gap-1.5",
+          width: "363px",
+        };
+    }
+  };
+
+  const {
+    symbolSize,
+    symbolBorderRadius,
+    titleTextSize,
+    subtitleTextSize,
+    legendTextSize,
+    itemGap,
+    legendGap,
+    width: defaultWidth,
+  } = getSizeConfig();
+
+  // Use manual width if set, otherwise use default from size
+  const width =
+    property.appearance?.width !== undefined
+      ? `${property.appearance.width}px`
+      : defaultWidth;
 
   // Update html and body width based on size
   useEffect(() => {
-    const width = size === "small" ? "300px" : "363px";
     document.documentElement.style.width = width;
     document.body.style.width = width;
-  }, [size]);
+  }, [width]);
 
   // Check if we have initial data but no legend items
   const hasInitialData = Object.keys(property).length > 0;
@@ -45,14 +93,14 @@ function App() {
       )}
 
       {/* Legend Items */}
-      {legendGroups?.map((group, groupIndex) =>
-        group.legends.length > 0 ? (
-          <div key={groupIndex} className="flex flex-col gap-2">
-            {group.title && (
-              <div className={`${subtitleTextSize} text-[#62748E]`}>
-                {group.title}
-              </div>
-            )}
+      {legendGroups?.map((group, groupIndex) => (
+        <div key={groupIndex} className="flex flex-col gap-2">
+          {group.title && (
+            <div className={`${subtitleTextSize} text-[#62748E]`}>
+              {group.title}
+            </div>
+          )}
+          {group.legends.length > 0 ? (
             <div className={`flex flex-col ${legendGap}`}>
               {group.legends.map((legend, legendIndex) => (
                 <div
@@ -67,7 +115,7 @@ function App() {
                     />
                   ) : (
                     <div
-                      className={`${symbolSize} rounded-sm shadow-sm shadow-black-300`}
+                      className={`${symbolSize} ${symbolBorderRadius} shadow-sm shadow-black-300 shrink-0`}
                       style={{
                         backgroundColor:
                           legend.legend_symbol_color || "#000000",
@@ -82,9 +130,9 @@ function App() {
                 </div>
               ))}
             </div>
-          </div>
-        ) : null,
-      )}
+          ) : null}
+        </div>
+      ))}
 
       {/* Empty state tip */}
       {showEmptyTip && (
