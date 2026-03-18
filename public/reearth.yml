@@ -80,7 +80,7 @@ extensions:
               title: Width
               type: number
               unit: px
-              defaultValue: 363
+              placeholder: 363
               availableIf:
                 field: size
                 type: string
@@ -89,7 +89,7 @@ extensions:
               title: Width
               type: number
               unit: px
-              defaultValue: 300
+              placeholder: 300
               availableIf:
                 field: size
                 type: string
@@ -98,7 +98,7 @@ extensions:
               title: Width
               type: number
               unit: px
-              defaultValue: 250
+              placeholder: 250
               availableIf:
                 field: size
                 type: string
