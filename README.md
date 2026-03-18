@@ -35,8 +35,15 @@ Each size automatically adjusts:
 
 ### Appearance Customization
 
-- **Custom Width**: Optionally set a manual width (in pixels) that overrides the size preset
+- **Custom Width**: Optionally set a manual width (in pixels) for each size preset
+  - `width_small`: Custom width when size is Small
+  - `width_medium`: Custom width when size is Medium
+  - `width_large`: Custom width when size is Large
 - **Background Color**: Choose any background color to match your map theme
+- **Adaptive Font Colors**: Text colors automatically adjust based on background brightness
+  - Light backgrounds use dark text for optimal contrast
+  - Dark backgrounds use light text for readability
+  - Uses WCAG 2.0 luminance calculations to determine background brightness
 - **Corner Radius**: Adjust the roundness of panel corners (in pixels)
 - **Border Control**:
   - Toggle border visibility on/off
@@ -47,6 +54,7 @@ Each size automatically adjusts:
 
 - **Automatic Grouping**: Legend items are automatically grouped under their corresponding subtitles
 - **Empty State**: Displays a helpful tip when no legend items are configured
+- **Intelligent Contrast**: All text elements automatically maintain readability on any background color
 
 ## Use Cases
 
