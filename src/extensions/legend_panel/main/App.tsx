@@ -56,11 +56,26 @@ function App() {
     width: defaultWidth,
   } = getSizeConfig();
 
-  // Use manual width if set, otherwise use default from size
-  const width =
-    property.appearance?.width !== undefined
-      ? `${property.appearance.width}px`
-      : defaultWidth;
+  // Use size-specific manual width if set, otherwise use default from size
+  const getWidth = () => {
+    let customWidth: number | undefined;
+
+    switch (size) {
+      case "small":
+        customWidth = property.appearance?.width_small;
+        break;
+      case "medium":
+        customWidth = property.appearance?.width_medium;
+        break;
+      case "large":
+        customWidth = property.appearance?.width_large;
+        break;
+    }
+
+    return customWidth !== undefined ? `${customWidth}px` : defaultWidth;
+  };
+
+  const width = getWidth();
 
   // Update html and body width based on size
   useEffect(() => {
