@@ -65,6 +65,15 @@ extensions:
         - id: appearance
           title: Appearance
           fields:
+            - id: size
+              title: Size
+              type: string
+              defaultValue: normal
+              choices:
+                - key: normal
+                  label: Normal
+                - key: small
+                  label: Small
             - id: background_color
               title: Background color
               type: string

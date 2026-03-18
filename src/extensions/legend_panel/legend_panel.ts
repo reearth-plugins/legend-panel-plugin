@@ -15,6 +15,7 @@ type WidgetProperty = {
     legend_symbol_image?: string;
   }[];
   appearance?: {
+    size?: "normal" | "small";
     background_color?: string;
     corner_radius?: number;
     show_border?: boolean;
@@ -29,8 +30,6 @@ reearth.ui.show(html_main);
 // Get message from UI
 reearth.extension.on("message", (message: unknown) => {
   const msg = message as { action: string; payload?: any };
-
-  console.log("Received message from UI:", msg);
 
   if (msg.action === "init") {
     const widgetProperty = reearth.extension.widget?.property as WidgetProperty;
