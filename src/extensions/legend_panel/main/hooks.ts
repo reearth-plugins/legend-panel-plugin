@@ -27,6 +27,7 @@ type WidgetProperty = {
     legend_symbol_image?: string;
   }[];
   appearance?: {
+    size?: "normal" | "small";
     background_color?: string;
     corner_radius?: number;
     show_border?: boolean;
@@ -51,9 +52,10 @@ export default () => {
     return {
       backgroundColor:
         property.appearance?.background_color || DEFAULT_PANEL_BACKGROUND_COLOR,
-      borderRadius: property.appearance?.corner_radius
-        ? `${property.appearance.corner_radius}px`
-        : `${DEFAULT_PANEL_CORNER_RADIUS}px`,
+      borderRadius:
+        property.appearance?.corner_radius !== undefined
+          ? `${property.appearance.corner_radius}px`
+          : `${DEFAULT_PANEL_CORNER_RADIUS}px`,
       border: property.appearance?.show_border
         ? `${property.appearance.border_width || DEFAULT_PANEL_BORDER_WIDTH}px solid ${
             property.appearance.border_color || DEFAULT_PANEL_BORDER_COLOR
@@ -78,6 +80,17 @@ export default () => {
           legend_symbol_color: item.legend_symbol_color,
           legend_symbol_image: item.legend_symbol_image,
         });
+      } else {
+        // If there's a legend item before any subtitle, create a default group
+        currentGroup = {
+          legends: [
+            {
+              legend_text: item.item_text,
+              legend_symbol_color: item.legend_symbol_color,
+              legend_symbol_image: item.legend_symbol_image,
+            },
+          ],
+        };
       }
     });
 
@@ -108,9 +121,14 @@ export default () => {
     postMsg("init");
   }, []);
 
+  const size = useMemo(() => {
+    return property.appearance?.size || "normal";
+  }, [property.appearance?.size]);
+
   return {
     property,
     panelStyle,
     legendGroups,
+    size,
   };
 };
