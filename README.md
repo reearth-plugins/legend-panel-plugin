@@ -36,9 +36,6 @@ Each size automatically adjusts:
 ### Appearance Customization
 
 - **Custom Width**: Optionally set a manual width (in pixels) for each size preset
-  - `width_small`: Custom width when size is Small
-  - `width_medium`: Custom width when size is Medium
-  - `width_large`: Custom width when size is Large
 - **Background Color**: Choose any background color to match your map theme
 - **Adaptive Font Colors**: Text colors automatically adjust based on background brightness
   - Light backgrounds use dark text for optimal contrast
