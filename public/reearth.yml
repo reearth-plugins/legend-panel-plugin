@@ -68,12 +68,19 @@ extensions:
             - id: size
               title: Size
               type: string
-              defaultValue: normal
+              defaultValue: medium
               choices:
-                - key: normal
-                  label: Normal
                 - key: small
                   label: Small
+                - key: medium
+                  label: Medium
+                - key: large
+                  label: Large
+            - id: width
+              title: Width
+              type: number
+              unit: px
+              description: Custom width (overrides size default)
             - id: background_color
               title: Background color
               type: string

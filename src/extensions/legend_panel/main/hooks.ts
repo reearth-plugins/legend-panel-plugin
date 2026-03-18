@@ -27,7 +27,8 @@ type WidgetProperty = {
     legend_symbol_image?: string;
   }[];
   appearance?: {
-    size?: "normal" | "small";
+    size?: "small" | "medium" | "large";
+    width?: number;
     background_color?: string;
     corner_radius?: number;
     show_border?: boolean;
@@ -122,7 +123,7 @@ export default () => {
   }, []);
 
   const size = useMemo(() => {
-    return property.appearance?.size || "normal";
+    return property.appearance?.size || "medium";
   }, [property.appearance?.size]);
 
   return {
