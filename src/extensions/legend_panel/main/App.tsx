@@ -1,5 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
+import { getColorSet } from "./colorUtils";
+import { DEFAULT_PANEL_BACKGROUND_COLOR } from "./constants";
 import useHookes from "./hooks";
 
 function App() {
@@ -77,6 +79,13 @@ function App() {
 
   const width = getWidth();
 
+  // Get dynamic colors based on background brightness
+  const colors = useMemo(() => {
+    const bgColor =
+      property.appearance?.background_color || DEFAULT_PANEL_BACKGROUND_COLOR;
+    return getColorSet(bgColor);
+  }, [property.appearance?.background_color]);
+
   // Update html and body width based on size
   useEffect(() => {
     document.documentElement.style.width = width;
@@ -90,7 +99,10 @@ function App() {
   const showEmptyTip = hasInitialData && hasNoLegendItems;
 
   return (
-    <div className="w-full h-full flex flex-col p-4 gap-4" style={panelStyle}>
+    <div
+      className="w-full h-full flex flex-col p-4 gap-4 backdrop-blur-sm"
+      style={panelStyle}
+    >
       {/* Header */}
       {property.general?.show_panel_title && (
         <div className={`flex ${itemGap} items-center`}>
@@ -101,7 +113,10 @@ function App() {
               className={`${symbolSize} object-contain`}
             />
           )}
-          <div className={`${titleTextSize} font-bold text-gray-900`}>
+          <div
+            className={`${titleTextSize} font-bold`}
+            style={{ color: colors.title }}
+          >
             {property.general?.panel_title}
           </div>
         </div>
@@ -111,7 +126,10 @@ function App() {
       {legendGroups?.map((group, groupIndex) => (
         <div key={groupIndex} className="flex flex-col gap-2">
           {group.title && (
-            <div className={`${subtitleTextSize} text-[#62748E]`}>
+            <div
+              className={subtitleTextSize}
+              style={{ color: colors.subtitle }}
+            >
               {group.title}
             </div>
           )}
@@ -138,7 +156,8 @@ function App() {
                     />
                   )}
                   <div
-                    className={`${legendTextSize} font-medium text-[#314158]`}
+                    className={`${legendTextSize} font-medium`}
+                    style={{ color: colors.legendText }}
                   >
                     {legend.legend_text}
                   </div>
@@ -151,7 +170,7 @@ function App() {
 
       {/* Empty state tip */}
       {showEmptyTip && (
-        <div className="text-xs text-gray-400 text-center">
+        <div className="text-xs text-center" style={{ color: colors.emptyTip }}>
           No legend items configured
         </div>
       )}
