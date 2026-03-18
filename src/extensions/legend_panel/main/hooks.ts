@@ -28,7 +28,9 @@ type WidgetProperty = {
   }[];
   appearance?: {
     size?: "small" | "medium" | "large";
-    width?: number;
+    width_large?: number;
+    width_medium?: number;
+    width_small?: number;
     background_color?: string;
     corner_radius?: number;
     show_border?: boolean;

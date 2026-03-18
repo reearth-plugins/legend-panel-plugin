@@ -76,11 +76,33 @@ extensions:
                   label: Medium
                 - key: large
                   label: Large
-            - id: width
+            - id: width_large
               title: Width
               type: number
               unit: px
-              description: Custom width (overrides size default)
+              defaultValue: 363
+              availableIf:
+                field: size
+                type: string
+                value: large
+            - id: width_medium
+              title: Width
+              type: number
+              unit: px
+              defaultValue: 300
+              availableIf:
+                field: size
+                type: string
+                value: medium
+            - id: width_small
+              title: Width
+              type: number
+              unit: px
+              defaultValue: 250
+              availableIf:
+                field: size
+                type: string
+                value: small
             - id: background_color
               title: Background color
               type: string
